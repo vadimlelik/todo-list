@@ -1,9 +1,10 @@
-import { prisma } from "@/server/db";
-import { trpc } from "@/shared/api";
+import { prisma } from '@/server/db';
+import { trpc } from '@/shared/api';
 
 export default function Blog() {
-  const { data } = trpc.hello.useQuery({ name: "name" });
-  return <div>{data?.greeting}</div>;
+    const { data } = trpc.hello.useQuery({ name: 'name' });
+
+    return <div>{data?.greeting}</div>;
 }
 
 // export const getServerSideProps = async () => {
