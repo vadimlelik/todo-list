@@ -1,10 +1,19 @@
+import EventCard from '@/entities/event/ui/card';
 import { prisma } from '@/server/db';
 import { trpc } from '@/shared/api';
 
 export default function Blog() {
-    const { data } = trpc.hello.useQuery({ name: 'name' });
+    const { data } = trpc.event.findMany.useQuery();
 
-    return <div>{data?.greeting}</div>;
+    return (
+        <ul>
+            {data?.map(({ title, id }) => (
+                <li key={id}>
+                    <EventCard />
+                </li>
+            ))}
+        </ul>
+    );
 }
 
 // export const getServerSideProps = async () => {
