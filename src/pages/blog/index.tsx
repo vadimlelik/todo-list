@@ -1,4 +1,5 @@
 import EventCard from '@/entities/event/ui/card';
+
 import { prisma } from '@/server/db';
 import { trpc } from '@/shared/api';
 
@@ -7,9 +8,9 @@ export default function Blog() {
 
     return (
         <ul>
-            {data?.map(({ title, id }) => (
-                <li key={id}>
-                    <EventCard />
+            {data?.map((event) => (
+                <li key={event.id}>
+                    <EventCard {...event} />
                 </li>
             ))}
         </ul>

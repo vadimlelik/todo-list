@@ -1,11 +1,14 @@
 import React from 'react';
 
-const EventCard = () => {
-    return (
-        <div>
-            <h1>Card</h1>
-        </div>
-    );
+type EventCardProps = {
+    title: string;
+    id: number;
+    date: Date;
+    description: string | null;
+};
+
+const EventCard = ({}: EventCardProps) => {
+    return <div className="card__wrapper"></div>;
 };
 
 export default EventCard;
