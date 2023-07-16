@@ -1,9 +1,8 @@
-import { z } from 'zod';
-import { procedure, router } from '../trpc';
-import { eventRouter } from './event';
+import { router } from "../trpc";
+import { eventRouter } from "./event";
 
 export const appRouter = router({
-    event: eventRouter,
+  event: eventRouter,
 });
 
 export type AppRouter = typeof appRouter;
