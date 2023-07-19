@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { CreateEventSchema } from "@/shared/api";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 export type FormEventValues = z.infer<typeof CreateEventSchema>;
@@ -14,18 +15,29 @@ export const CreateForm = ({ onSubmit }: CreateFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormEventValues>();
+  } = useForm<FormEventValues>({
+    resolver: zodResolver(CreateEventSchema),
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        type="text"
-        placeholder="placeholder"
-        id="title"
-        {...register("title")}
-      />
-      <textarea id="description" {...register("description")} />
-      <input type="date" id="data" {...register("date")} />
+      <div>
+        <input
+          type="text"
+          placeholder="placeholder"
+          id="title"
+          {...register("title")}
+        />
+        {errors.title && <p>{errors.title.message}</p>}
+      </div>
+      <div>
+        <textarea id="description" {...register("description")} />
+        {errors.description && <p>{errors.description.message}</p>}
+      </div>
+      <div>
+        <input type="date" id="data" {...register("date")} />
+        {errors.date && <p>{errors.date.message}</p>}
+      </div>
       <button type="submit">Создать</button>
     </form>
   );
