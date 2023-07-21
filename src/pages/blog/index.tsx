@@ -3,17 +3,16 @@ import EventCard from "@/entities/event/ui/card";
 import { prisma } from "@/server/db";
 import { trpc } from "@/shared/api";
 import style from "./blog.module.css";
+import ButtonEvent from "@/features/join-event/ui/buttonEvent";
 
 export default function Blog() {
   const { data } = trpc.event.findMany.useQuery();
-
-  console.log(data);
 
   return (
     <ul>
       {data?.map((event) => (
         <li key={event.id}>
-          <EventCard {...event} />
+          <EventCard {...event} action={<ButtonEvent eventId={event.id} />} />
         </li>
       ))}
     </ul>

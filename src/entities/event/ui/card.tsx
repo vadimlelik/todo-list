@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import style from "./card.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,18 +8,23 @@ type EventCardProps = {
   id: number;
   date: Date;
   description: string | null;
+  action: ReactNode;
 };
 
-const EventCard = ({ title, description, date, id }: EventCardProps) => {
-  console.log(date);
-
+const EventCard = ({
+  title,
+  description,
+  date,
+  id,
+  action,
+}: EventCardProps) => {
   return (
     <div className={style.Card}>
       <div className={style.Title}>{title}</div>
       <div className={style.Description}>{description}</div>
       <div>{date.toDateString()}</div>
       <div className={style.ButtonGroup}>
-        <button>Delete</button>
+        {action}
         <Link href={`/blog/${id}`}>Подробнее</Link>
       </div>
     </div>
