@@ -10,10 +10,18 @@ export const eventRouter = router({
   findUnique: procedure.input(UniqueEvent).query(({ input, ctx: { user } }) => {
     return prisma.event.findUnique({
       where: input,
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        date: true,
         participations: {
-          include: {
-            user: true,
+          select: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
       },
