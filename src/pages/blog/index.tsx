@@ -1,22 +1,26 @@
-import EventCard from "@/entities/event/ui/card";
-
-import { prisma } from "@/server/db";
-import { trpc } from "@/shared/api";
-import style from "./blog.module.css";
-import ButtonEvent from "@/features/join-event/ui/buttonEvent";
+import EventCard from '@/entities/event/ui/card';
+import { trpc } from '@/shared/api';
+import ButtonEvent from '@/features/join-event/ui/buttonEvent';
 
 export default function Blog() {
-  const { data } = trpc.event.findMany.useQuery();
+    const { data, refetch } = trpc.event.findMany.useQuery();
 
-  return (
-    <ul>
-      {data?.map((event) => (
-        <li key={event.id}>
-          <EventCard {...event} action={<ButtonEvent eventId={event.id} />} />
-        </li>
-      ))}
-    </ul>
-  );
+    return (
+        <ul>
+            {data?.map((event) => (
+                <li key={event.id}>
+                    <EventCard
+                        {...event}
+                        action={
+                            !event.isJoined && (
+                                <ButtonEvent onSuccess={refetch} eventId={event.id} />
+                            )
+                        }
+                    />
+                </li>
+            ))}
+        </ul>
+    );
 }
 
 // export const getServerSideProps = async () => {

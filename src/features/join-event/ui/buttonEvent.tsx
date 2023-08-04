@@ -1,18 +1,19 @@
-import { trpc } from "@/shared/api";
-import React from "react";
+import { trpc } from '@/shared/api';
+import React from 'react';
 
 type ButtonEventProps = {
-  eventId: number;
+    eventId: number;
+    onSuccess?: () => void;
 };
 
-const ButtonEvent = ({ eventId }: ButtonEventProps) => {
-  const { mutate } = trpc.event.join.useMutation();
+const ButtonEvent = ({ eventId, onSuccess }: ButtonEventProps) => {
+    const { mutate } = trpc.event.join.useMutation({ onSuccess });
 
-  const handleClick = () => {
-    mutate({ id: eventId });
-  };
+    const handleClick = () => {
+        mutate({ id: eventId });
+    };
 
-  return <button onClick={handleClick}>Присоедениться</button>;
+    return <button onClick={handleClick}>Присоедениться</button>;
 };
 
 export default ButtonEvent;
